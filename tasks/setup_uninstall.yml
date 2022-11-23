@@ -1,0 +1,23 @@
+- name: '[debian] uninstall mpd package'
+  action: >
+    {{ ansible_pkg_mgr }} name=mpd state=absent
+  become: yes
+  tags: mpd
+
+- name: '[debian] uninstall mpc package'
+  action: >
+    {{ ansible_pkg_mgr }} name=mpc state=absent
+  become: yes
+  when: mpd_install_mpc
+  tags:
+  - mpd
+  - mpc
+
+- name: '[debian] uninstall ncmpcpp package'
+  action: >
+    {{ ansible_pkg_mgr }} name=ncmpcpp state=absent
+  become: yes
+  when: mpd_install_ncmpcpp
+  tags:
+  - mpd
+  - ncmpcpp

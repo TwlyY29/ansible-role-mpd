@@ -1,14 +1,11 @@
----
-# tasks file for mpd
-
-- name: "[main] Include {{ ansible_os_family }}-specific tasks"
-  include_tasks: "{{ ansible_os_family | lower }}.yml"
+- import_tasks: "{{ role_path }}/tasks/setup_install.yml"
+  when: ms_mpd_enabled|bool
   tags:
-  - mpd
-  - mpc
-  - ncmpcpp
+    - setup-all
+    - setup-ms-mpd
 
-- name: "[main] Flush all handlers"
-  meta: flush_handlers
-  tags: mpd
-...
+- import_tasks: "{{ role_path }}/tasks/setup_uninstall.yml"
+  when: not ms_mpd_enabled|bool
+  tags:
+    - setup-all
+    - setup-ms-mpd

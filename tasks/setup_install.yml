@@ -1,4 +1,6 @@
 ---
+# tasks file for mpd
+
 - name: '[debian] Include all Debian-specific variables'
   include_vars: debian.yml
   tags: mpd
@@ -14,13 +16,13 @@
 #
 - name: '[debian] Install mpd package'
   action: >
-    {{ ansible_pkg_mgr }} name=mpd state=present update_cache=yes
+    {{ ansible_pkg_mgr }} name=mpd state=present
   become: yes
   tags: mpd
 
 - name: '[debian] Install mpc package'
   action: >
-    {{ ansible_pkg_mgr }} name=mpc state=present update_cache=yes
+    {{ ansible_pkg_mgr }} name=mpc state=present
   become: yes
   when: mpd_install_mpc
   tags:
@@ -29,7 +31,7 @@
 
 - name: '[debian] Install ncmpcpp package'
   action: >
-    {{ ansible_pkg_mgr }} name=ncmpcpp state=present update_cache=yes
+    {{ ansible_pkg_mgr }} name=ncmpcpp state=present
   become: yes
   when: mpd_install_ncmpcpp
   tags:
@@ -110,5 +112,10 @@
         mpd_stat_firewalld.results[1].stat.exists
   vars:
     ansible_python_interpreter: '/usr/bin/python3' # Fix the "Python Module not found.." Error
+  tags: mpd
+
+
+- name: "[main] Flush all handlers"
+  meta: flush_handlers
   tags: mpd
 ...

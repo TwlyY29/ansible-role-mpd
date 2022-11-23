@@ -1,4 +1,7 @@
 ---
+ms_mpd_enabled: no
+
+
 # defaults file for mpd
 
 mpd_autostart: yes
@@ -26,4 +29,6 @@ mpd_follow_outside_symlinks: no
 mpd_users:
 - "{{ ansible_user_id }}"
 - root
+
+#~ mpd_outputs:
 ...
